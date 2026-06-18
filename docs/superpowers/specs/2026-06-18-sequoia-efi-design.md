@@ -27,7 +27,7 @@ The existing `MSI-B360M-PRO-VDH-OPENCORE/` folder in this repo is an old example
 - **macOS version:** Sequoia 15.x — best stability-to-recency balance for Coffee Lake/UHD 630; mature kext + OpenCore support. (Sonoma 14 = safest fallback; Tahoe 26 = too fragile for iGPU-only.)
 - **OpenCore:** latest RELEASE build (1.0.x — pull current at build time).
 - **SMBIOS:** `Macmini8,1` (matches i3-8100B, iGPU-only; iMac19,1 previously caused XCPM/launchd reboot).
-- **Wi-Fi:** `AirportItlwm` (native menu-bar UI). Version-locked to the macOS build — must swap the matching kext on every major update. No AirDrop/Continuity (Intel card).
+- **Wi-Fi:** `itlwm` + **HeliPort** app. AirportItlwm has no Sequoia build (latest v2.3.0 stops at Sonoma 14.4), so the native-menu-bar route would require fragile OCLP root patches. `itlwm` is version-independent and works on Sequoia; Wi-Fi is managed by the HeliPort app rather than the macOS menu bar. One kext, update-resilient. No AirDrop/Continuity (Intel card). *(Revised 2026-06-18 from the original AirportItlwm choice after confirming no Sequoia build exists.)*
 
 ## Section 1 — EFI structure
 
@@ -45,7 +45,7 @@ Standard layout: `EFI/BOOT/BOOTx64.efi` + `EFI/OC/` with `OpenCore.efi`, `config
 - `WhateverGreen.kext` — UHD 630 graphics
 - `AppleALC.kext` — onboard audio (ALC892; layout-id via `alcid`)
 - `RealtekRTL8111.kext` — Realtek GbE
-- `AirportItlwm.kext` — **Sequoia-matched build** for AX210 Wi-Fi
+- `itlwm.kext` — AX210 Wi-Fi (managed via the HeliPort app, installed in macOS post-install)
 - `IntelBluetoothFirmware.kext` + `IntelBTPatcher.kext` + `BlueToolFixup.kext` — AX210 Bluetooth
 - `USBToolBox.kext` + `UTBMap.kext` — USB (UTBMap generated on the machine post-install)
 - `NVMeFix.kext` — power management for the Kingston NV1
@@ -140,7 +140,7 @@ Result: one USB that boots OpenCore and runs the Sequoia installer.
 - Boots to desktop from NVMe alone
 - About This Mac: Macmini8,1, correct CPU / 16 GB RAM
 - Intel UHD Graphics 630 with full acceleration (smooth UI, correct resolution) over HDMI/DVI
-- Audio out works (tuned `alcid`), Ethernet up, Wi-Fi in menu bar, Bluetooth on
+- Audio out works (tuned `alcid`), Ethernet up, Wi-Fi connects via HeliPort, Bluetooth on
 - NVMe shows as internal storage
 - Optional / deferrable: sleep/wake, iMessage/FaceTime
 

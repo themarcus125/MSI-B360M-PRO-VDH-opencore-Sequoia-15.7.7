@@ -6,7 +6,7 @@
 
 **Architecture:** Assemble a minimal OpenCore EFI from the latest RELEASE on the host Mac, configure `config.plist` per the Dortania Coffee Lake desktop baseline, and graft in four board-specific decisions proven on this exact board (SMBIOS `Macmini8,1`, CFG-lock quirks `false`, UHD 630 connector data, IONVMe DMA-reset patch). Then build the install USB with `createinstallmedia`, install, and migrate the EFI to the NVMe.
 
-**Tech Stack:** OpenCorePkg (latest RELEASE), Acidanthera kexts (Lilu/VirtualSMC/WhateverGreen/AppleALC/RestrictEvents/NVMeFix/Bluetooth), AirportItlwm, RealtekRTL8111, USBToolBox, GenSMBIOS/macserial, `ocvalidate`, `/usr/libexec/PlistBuddy`, `createinstallmedia`, macOS Sequoia 15.x.
+**Tech Stack:** OpenCorePkg (latest RELEASE), Acidanthera kexts (Lilu/VirtualSMC/WhateverGreen/AppleALC/RestrictEvents/NVMeFix/Bluetooth), itlwm (+HeliPort), RealtekRTL8111, USBToolBox, GenSMBIOS/macserial, `ocvalidate`, `/usr/libexec/PlistBuddy`, `createinstallmedia`, macOS Sequoia 15.x.
 
 ## Global Constraints
 
@@ -147,7 +147,7 @@ git commit -m "feat: seed minimal EFI skeleton from OpenCore RELEASE"
 
 **Interfaces:**
 - Consumes: `build/EFI/OC/Kexts/` (from Task 2).
-- Produces: all release kexts in place: `Lilu`, `VirtualSMC` (+ `SMCProcessor`, `SMCSuperIO`), `WhateverGreen`, `AppleALC`, `RestrictEvents`, `NVMeFix`, `RealtekRTL8111`, `IntelBluetoothFirmware`, `IntelBTPatcher`, `BlueToolFixup`. (AirportItlwm + USBToolBox handled in Tasks 4 and 18.)
+- Produces: all release kexts in place: `Lilu`, `VirtualSMC` (+ `SMCProcessor`, `SMCSuperIO`), `WhateverGreen`, `AppleALC`, `RestrictEvents`, `NVMeFix`, `RealtekRTL8111`, `IntelBluetoothFirmware`, `IntelBTPatcher`, `BlueToolFixup`. (itlwm + USBToolBox handled in Tasks 4 and 18.)
 
 - [ ] **Step 1: Define a helper to fetch the latest RELEASE asset from a repo**
 
@@ -219,40 +219,38 @@ git commit -m "feat: add Acidanthera + Realtek kexts to EFI"
 
 ---
 
-### Task 4: Download AirportItlwm (Sequoia build) and add HfsPlus driver
+### Task 4: Download itlwm (Wi-Fi) and add HfsPlus driver
+
+> **Revised 2026-06-18:** AirportItlwm has no Sequoia build (latest v2.3.0 stops at Sonoma 14.4). Switched to **itlwm + HeliPort**: `itlwm.kext` is version-independent and works on Sequoia; the HeliPort app (installed in macOS post-install, NOT in the EFI) provides the Wi-Fi UI. HfsPlus + Resources (Steps 3-4) were already completed and committed (`4a7edff`).
 
 **Files:**
-- Create: `build/EFI/OC/Kexts/AirportItlwm.kext`
-- Create: `build/EFI/OC/Drivers/HfsPlus.efi`
+- Create: `build/EFI/OC/Kexts/itlwm.kext`
+- Create: `build/EFI/OC/Drivers/HfsPlus.efi` (done in `4a7edff`)
 
 **Interfaces:**
 - Consumes: Kexts/ and Drivers/ dirs.
-- Produces: AirportItlwm.kext (Sequoia-matched) and HfsPlus.efi present.
+- Produces: itlwm.kext and HfsPlus.efi present; HeliPort noted as a post-install step.
 
-- [ ] **Step 1: Download the AirportItlwm release zip**
-
-```bash
-cd /Users/khoango/Desktop/hackintosh/build/downloads
-curl -s https://api.github.com/repos/OpenIntlWifi/OpenIntlWifi/releases/latest \
-  | grep browser_download_url | grep -i 'itlwm' | cut -d'"' -f4
-```
-If no asset, use the canonical source: `https://github.com/zxystd/itlwm/releases` (download the latest `AirportItlwm` zip). Save as `AirportItlwm.zip`.
-
-- [ ] **Step 2: Extract the Sequoia (15.x) variant**
+- [ ] **Step 1: Download the itlwm release zip** (the codeless-companion to AirportItlwm; used with HeliPort)
 
 ```bash
 cd /Users/khoango/Desktop/hackintosh/build/downloads
-rm -rf itlwm-tmp && mkdir itlwm-tmp && unzip -q AirportItlwm.zip -d itlwm-tmp
-# the zip contains per-OS folders; pick the Sequoia one
-find itlwm-tmp -ipath '*equoia*' -name 'AirportItlwm.kext' -maxdepth 6
+curl -s https://api.github.com/repos/OpenIntelWireless/itlwm/releases/latest \
+  | grep browser_download_url | grep -iE 'itlwm_v.*stable.kext.zip' | cut -d'"' -f4
 ```
-Expected: a path under a `Sequoia` / `15` folder. Copy it:
-```bash
-SRC=$(find /Users/khoango/Desktop/hackintosh/build/downloads/itlwm-tmp -ipath '*equoia*' -name 'AirportItlwm.kext' -maxdepth 6 | head -1)
-cp -R "$SRC" /Users/khoango/Desktop/hackintosh/build/EFI/OC/Kexts/AirportItlwm.kext
-```
+Expected: a URL like `.../itlwm_v2.3.0_stable.kext.zip`. Download it as `itlwm.zip`.
 
-- [ ] **Step 3: Add HfsPlus.efi** (from the well-known OcBinaryData repo)
+- [ ] **Step 2: Extract itlwm.kext**
+
+```bash
+cd /Users/khoango/Desktop/hackintosh/build/downloads
+rm -rf itlwm-tmp && mkdir itlwm-tmp && unzip -q itlwm.zip -d itlwm-tmp
+SRC=$(find itlwm-tmp -name 'itlwm.kext' -maxdepth 4 | head -1)
+cp -R "$SRC" /Users/khoango/Desktop/hackintosh/build/EFI/OC/Kexts/itlwm.kext
+```
+Verify the binary exists: `test -f /Users/khoango/Desktop/hackintosh/build/EFI/OC/Kexts/itlwm.kext/Contents/MacOS/itlwm && echo OK`
+
+- [ ] **Step 3 (DONE in `4a7edff`): Add HfsPlus.efi** (from the well-known OcBinaryData repo)
 
 ```bash
 cd /Users/khoango/Desktop/hackintosh/build/downloads
@@ -260,7 +258,7 @@ curl -L https://github.com/acidanthera/OcBinaryData/raw/master/Drivers/HfsPlus.e
   -o /Users/khoango/Desktop/hackintosh/build/EFI/OC/Drivers/HfsPlus.efi
 ```
 
-- [ ] **Step 4: Add OpenCanopy Resources** (icons/audio for the GUI picker)
+- [ ] **Step 4 (DONE in `4a7edff`): Add OpenCanopy Resources** (icons/audio for the GUI picker)
 
 ```bash
 cd /Users/khoango/Desktop/hackintosh/build/downloads
@@ -272,19 +270,21 @@ cp -R OcBinaryData/Resources/* /Users/khoango/Desktop/hackintosh/build/EFI/OC/Re
 
 Run:
 ```bash
-ls /Users/khoango/Desktop/hackintosh/build/EFI/OC/Kexts/AirportItlwm.kext/Contents/MacOS/AirportItlwm \
+ls /Users/khoango/Desktop/hackintosh/build/EFI/OC/Kexts/itlwm.kext/Contents/MacOS/itlwm \
    /Users/khoango/Desktop/hackintosh/build/EFI/OC/Drivers/HfsPlus.efi
 ls /Users/khoango/Desktop/hackintosh/build/EFI/OC/Resources/Image | head -1
 ```
-Expected: AirportItlwm binary + HfsPlus.efi exist; Resources/Image has content.
+Expected: itlwm binary + HfsPlus.efi exist; Resources/Image has content.
 
 - [ ] **Step 6: Commit**
 
 ```bash
 cd /Users/khoango/Desktop/hackintosh
-git add build/EFI/OC/Kexts/AirportItlwm.kext build/EFI/OC/Drivers/HfsPlus.efi build/EFI/OC/Resources
-git commit -m "feat: add AirportItlwm (Sequoia), HfsPlus, OpenCanopy resources"
+git add build/EFI/OC/Kexts/itlwm.kext
+git commit -m "feat: add itlwm Wi-Fi kext (HeliPort path) for Sequoia"
 ```
+
+> **Post-install reminder:** install the **HeliPort** app (`OpenIntelWireless/HeliPort` releases) in macOS to manage Wi-Fi — itlwm has no native menu-bar UI.
 
 ---
 
@@ -462,7 +462,7 @@ for s in SSDT-PLUG.aml SSDT-EC-USBX.aml SSDT-AWAC.aml SSDT-PMC.aml; do
 done
 ```
 
-- [ ] **Step 2: Register kexts in load order** (Lilu → VirtualSMC + plugins → WhateverGreen → AppleALC → RestrictEvents → NVMeFix → RealtekRTL8111 → AirportItlwm → IntelBluetoothFirmware → IntelBTPatcher → BlueToolFixup)
+- [ ] **Step 2: Register kexts in load order** (Lilu → VirtualSMC + plugins → WhateverGreen → AppleALC → RestrictEvents → NVMeFix → RealtekRTL8111 → itlwm → IntelBluetoothFirmware → IntelBTPatcher → BlueToolFixup)
 
 For each kext add an entry with `BundlePath`, `ExecutablePath`, `PlistPath`, `Enabled=true`:
 ```bash
@@ -477,7 +477,7 @@ addkext() { P=/Users/khoango/Desktop/hackintosh/build/EFI/OC/config.plist
   /usr/libexec/PlistBuddy -c "Add :Kernel:Add:$i:MinKernel string '' " "$P"
   /usr/libexec/PlistBuddy -c "Add :Kernel:Add:$i:MaxKernel string '' " "$P"
 }
-for k in Lilu VirtualSMC SMCProcessor SMCSuperIO WhateverGreen AppleALC RestrictEvents NVMeFix RealtekRTL8111 AirportItlwm IntelBluetoothFirmware IntelBTPatcher BlueToolFixup; do addkext "$k"; done
+for k in Lilu VirtualSMC SMCProcessor SMCSuperIO WhateverGreen AppleALC RestrictEvents NVMeFix RealtekRTL8111 itlwm IntelBluetoothFirmware IntelBTPatcher BlueToolFixup; do addkext "$k"; done
 ```
 Note: `BlueToolFixup` lives inside the IntelBluetoothFirmware bundle download; ensure its `BundlePath` is just `BlueToolFixup.kext` (it was copied flat in Task 3).
 
@@ -921,7 +921,7 @@ git commit -m "chore(config): harden — real ROM, Secure Boot Default, quiet bo
   - **Intel UHD Graphics 630** with acceleration: System Information → Graphics/Displays shows "Metal Supported"; UI is smooth at native resolution over HDMI/DVI
   - Audio out works (adjust `alcid` layout if not — try 1, 5, 7, 11)
   - Ethernet up (`ifconfig`/Network pref)
-  - Wi-Fi in the menu bar (AirportItlwm)
+  - Wi-Fi connects via the HeliPort app (itlwm)
   - Bluetooth on
   - Kingston NV1 shows as internal storage
 - [ ] **Step 2:** Record any deferred items (sleep/wake, iMessage/FaceTime) for a follow-up session. Update the project memory `hackintosh-build.md` with the final working state.
@@ -932,4 +932,4 @@ git commit -m "chore(config): harden — real ROM, Secure Boot Default, quiet bo
 ## Notes / Out of Scope
 - Sleep/wake tuning and iServices (iMessage/FaceTime) validation are deferred until the base system is stable.
 - No dGPU configuration (iGPU-only).
-- AirportItlwm is version-locked: on every macOS major update, swap in the matching `AirportItlwm.kext` before rebooting.
+- Wi-Fi uses `itlwm` + the **HeliPort** app (AirportItlwm has no Sequoia build). itlwm is version-independent, so no per-update kext swap is needed; just keep HeliPort installed in macOS. No AirDrop/Continuity with the Intel card.
