@@ -1324,7 +1324,7 @@
 			<key>ScanPolicy</key>
 			<integer>0</integer>
 			<key>SecureBootModel</key>
-			<string>Disabled</string>
+			<string>Default</string>
 			<key>Vault</key>
 			<string>Optional</string>
 		</dict>
@@ -1433,7 +1433,7 @@
 				Rg==
 				</data>
 				<key>boot-args</key>
-				<string>-v keepsyms=1 debug=0x100 alcid=1</string>
+				<string>keepsyms=1 alcid=1</string>
 				<key>csr-active-config</key>
 				<data>
 				AAAAAA==
@@ -1515,7 +1515,7 @@
 			<integer>0</integer>
 			<key>ROM</key>
 			<data>
-			ABEiM0RV
+			MJwjpI+K
 			</data>
 			<key>SpoofVendor</key>
 			<true/>
