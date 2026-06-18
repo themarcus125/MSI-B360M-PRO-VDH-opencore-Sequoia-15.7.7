@@ -1,0 +1,5 @@
+build/downloads/
+*.dmg
+*.zip
+.DS_Store
+MSI-B360M-PRO-VDH-OPENCORE/.git/
