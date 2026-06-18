@@ -1,0 +1,21 @@
+Source: MSI-B360M-PRO-VDH-OPENCORE community repo (same board)
+Extracted from: git show HEAD:EFI/OC/config.plist
+Path: Kernel > Patch
+
+Total Kernel:Patch entries in reference: 0
+
+No NVMe patch in reference — must confirm whether Sequoia needs IONVMeController::resetDMA before enabling.
+
+---
+Context for Task 8:
+The user's memory notes that an IONVMeController::resetDMA patch was needed for the Kingston NV1
+NVMe drive on Sonoma. The community config (same board) does not include this patch, suggesting
+it may be board/drive-specific or was added after the community EFI was created.
+
+Before enabling an NVMe patch in the final config.plist, confirm:
+1. Whether macOS Sequoia still exhibits the Kingston NV1 reset issue
+2. The exact Find/Replace/Mask bytes that were used in the known-good "EFI 0.6.0" configuration
+3. Whether the patch should be scoped to com.apple.iokit.IONVMeFamily or a specific kext
+
+Do NOT copy a patch from the internet without verifying it matches the Sequoia kernel version.
+If the system boots and NVMe is stable without the patch, omit it.

@@ -1,0 +1,32 @@
+Source: MSI-B360M-PRO-VDH-OPENCORE community repo (same board: MSI B360M PRO-VDH, i3-8100/UHD 630)
+Extracted from: git show HEAD:EFI/OC/config.plist
+Path: DeviceProperties > Add > PciRoot(0x0)/Pci(0x2,0x0)
+
+All <data> values are base64-encoded; hex is included for verification.
+
+AAPL,ig-platform-id      = <data> AACbPg== </data>   (hex: 00009b3e)
+                            NOTE: OpenCore stores as little-endian bytes, so
+                            AACbPg== = bytes 00 00 9b 3e = platform-id 0x3E9B0000
+
+enable-hdmi20            = <data> AQAAAA== </data>   (hex: 01000000)
+force-online             = <data> AQAAAA== </data>   (hex: 01000000)
+framebuffer-patch-enable = <data> AQAAAA== </data>   (hex: 01000000)
+rps-control              = <data> AQAAAA== </data>   (hex: 01000000)
+
+framebuffer-con0-alldata = <data> AQEJAAAIAADHAwAA </data>   (hex: 0101090000080000c7030000)
+framebuffer-con0-enable  = <data> AQAAAA== </data>   (hex: 01000000)
+
+framebuffer-con1-alldata = <data> AgIKAAAIAADHAwAA </data>   (hex: 02020a0000080000c7030000)
+framebuffer-con1-enable  = <data> AQAAAA== </data>   (hex: 01000000)
+
+framebuffer-con2-alldata = <data> AwYIAAAIAADHAwAA </data>   (hex: 0306080000080000c7030000)
+framebuffer-con2-enable  = <data> AQAAAA== </data>   (hex: 01000000)
+
+---
+Connector data decoded (12 bytes each, WhateverGreen framebuffer-conX-alldata format):
+  con0: type=01 (HDMI), pipe=01, index=09, flags=00 00, busid=08, unknown=00 00, connector-type=0x000003C7
+  con1: type=02 (DisplayPort), pipe=02, index=0a, flags=00 00, busid=08, unknown=00 00, connector-type=0x000003C7
+  con2: type=03 (DisplayPort), pipe=06, index=08, flags=00 00, busid=08, unknown=00 00, connector-type=0x000003C7
+
+These values are proven working on i3-8100 + UHD 630 + MSI B360M PRO-VDH.
+Copy verbatim into build/EFI/OC/config.plist DeviceProperties block.
