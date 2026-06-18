@@ -329,27 +329,49 @@
 			<key>PciRoot(0x0)/Pci(0x2,0x0)</key>
 			<dict>
 				<key>AAPL,ig-platform-id</key>
-				<data>AACbPg==</data>
+				<data>
+				AACbPg==
+				</data>
 				<key>enable-hdmi20</key>
-				<data>AQAAAA==</data>
+				<data>
+				AQAAAA==
+				</data>
 				<key>force-online</key>
-				<data>AQAAAA==</data>
+				<data>
+				AQAAAA==
+				</data>
 				<key>framebuffer-con0-alldata</key>
-				<data>AQEJAAAIAADHAwAA</data>
+				<data>
+				AQEJAAAIAADHAwAA
+				</data>
 				<key>framebuffer-con0-enable</key>
-				<data>AQAAAA==</data>
+				<data>
+				AQAAAA==
+				</data>
 				<key>framebuffer-con1-alldata</key>
-				<data>AgIKAAAIAADHAwAA</data>
+				<data>
+				AgIKAAAIAADHAwAA
+				</data>
 				<key>framebuffer-con1-enable</key>
-				<data>AQAAAA==</data>
+				<data>
+				AQAAAA==
+				</data>
 				<key>framebuffer-con2-alldata</key>
-				<data>AwYIAAAIAADHAwAA</data>
+				<data>
+				AwYIAAAIAADHAwAA
+				</data>
 				<key>framebuffer-con2-enable</key>
-				<data>AQAAAA==</data>
+				<data>
+				AQAAAA==
+				</data>
 				<key>framebuffer-patch-enable</key>
-				<data>AQAAAA==</data>
+				<data>
+				AQAAAA==
+				</data>
 				<key>rps-control</key>
-				<data>AQAAAA==</data>
+				<data>
+				AQAAAA==
+				</data>
 			</dict>
 		</dict>
 		<key>Delete</key>
@@ -1179,7 +1201,7 @@
 			<key>PickerAudioAssist</key>
 			<false/>
 			<key>PickerMode</key>
-			<string>Builtin</string>
+			<string>External</string>
 			<key>PickerVariant</key>
 			<string>Auto</string>
 			<key>PollAppleHotKeys</key>
@@ -1256,11 +1278,11 @@
 			<data>
 			</data>
 			<key>ScanPolicy</key>
-			<integer>17760515</integer>
+			<integer>0</integer>
 			<key>SecureBootModel</key>
-			<string>Default</string>
+			<string>Disabled</string>
 			<key>Vault</key>
-			<string>Secure</string>
+			<string>Optional</string>
 		</dict>
 		<key>Serial</key>
 		<dict>
@@ -1554,18 +1576,6 @@
 				<key>Comment</key>
 				<string></string>
 				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<true/>
-				<key>Path</key>
-				<string>OpenVariableRuntimeDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
 				<true/>
 				<key>LoadEarly</key>
 				<false/>
@@ -1578,91 +1588,7 @@
 				<key>Comment</key>
 				<string></string>
 				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>VirtioPciDeviceDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Virtio10.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>VirtioSerialDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>VirtioScsiDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>VirtioBlkDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>VirtioGpuDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string>HFS+ Driver</string>
-				<key>Enabled</key>
 				<true/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>HfsPlus.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
 				<key>LoadEarly</key>
 				<false/>
 				<key>Path</key>
@@ -1674,451 +1600,7 @@
 				<key>Comment</key>
 				<string></string>
 				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>AudioDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>OpenPartitionDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>OpenUsbKbDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>UsbMouseDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Ps2KeyboardDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Ps2MouseDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>HiiDatabase.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>NvmExpressDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>XhciDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>ExFatDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>CrScreenshotDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Ext4Dxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>RngDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Hash2DxeCrypto.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>DpcDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>SnpDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>MnpDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>ArpDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Dhcp4Dxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Ip4Dxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Udp4Dxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Mtftp4Dxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Dhcp6Dxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Ip6Dxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Udp6Dxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>Mtftp6Dxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>TcpDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>UefiPxeBcDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>DnsDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>HttpDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>HttpUtilitiesDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>HttpBootDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>TlsDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>RamDiskDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>VirtioNetDxe.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>OpenLinuxBoot.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>OpenNetworkBoot.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
+				<true/>
 				<key>LoadEarly</key>
 				<false/>
 				<key>Path</key>
@@ -2130,23 +1612,11 @@
 				<key>Comment</key>
 				<string></string>
 				<key>Enabled</key>
-				<false/>
+				<true/>
 				<key>LoadEarly</key>
 				<false/>
 				<key>Path</key>
-				<string>ToggleSipEntry.efi</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<string></string>
-				<key>Comment</key>
-				<string></string>
-				<key>Enabled</key>
-				<false/>
-				<key>LoadEarly</key>
-				<false/>
-				<key>Path</key>
-				<string>FirmwareSettingsEntry.efi</string>
+				<string>HfsPlus.efi</string>
 			</dict>
 		</array>
 		<key>Input</key>
@@ -2267,7 +1737,7 @@
 			<key>IgnoreInvalidFlexRatio</key>
 			<false/>
 			<key>ReleaseUsbOwnership</key>
-			<false/>
+			<true/>
 			<key>ReloadOptionRoms</key>
 			<false/>
 			<key>RequestBootVarRouting</key>
