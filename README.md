@@ -57,14 +57,14 @@ build/EFI/
 
 - [`build/EFI/`](build/EFI/) — the assembled, flashable EFI (validated with `ocvalidate`, 0 issues).
 - [`build/oc-release/`](build/oc-release/) — the matching OpenCore RELEASE package (Docs + Utilities, incl. `ocvalidate`).
-- [`MSI-B360M-PRO-VDH-OPENCORE/`](MSI-B360M-PRO-VDH-OPENCORE/) — BIOS-settings reference (screenshots) for the same board.
+- [`BiosSettings/`](BiosSettings/) — BIOS-settings reference (screenshots) for this board.
 - [`docs/`](docs/) — design notes and build plan.
 
 ## Install (summary)
 
 1. Create a Sequoia install USB (`softwareupdate --fetch-full-installer` → `createinstallmedia`).
 2. Mount the USB's EFI partition and copy in `build/EFI/`.
-3. Apply BIOS settings (see `MSI-B360M-PRO-VDH-OPENCORE/BiosSettings/`): disable CFG-Lock, enable above-4G decoding, set iGPU as primary, etc.
+3. Apply BIOS settings (see [`BiosSettings/`](BiosSettings/)): disable CFG-Lock, enable above-4G decoding, set iGPU as primary, etc.
 4. Boot the USB and install macOS.
 5. Copy `build/EFI/` to the NVMe's EFI partition to boot without the USB.
 6. Install the HeliPort app for Wi-Fi.
